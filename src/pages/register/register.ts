@@ -4,6 +4,7 @@ import {
   NavParams, LoadingController, ToastController
 } from 'ionic-angular';
 import { AuthProvider } from '../../providers/auth/auth';
+import { HomePage } from '../home/home';
 /**
  * Generated class for the RegisterPage page.
  *
@@ -48,7 +49,7 @@ export class RegisterPage {
     this.auth.register(this.user,
     (d)=>{
       this.loader.dismiss();
-      this.navCtrl.setRoot('HomePage');
+      this.navCtrl.setRoot(HomePage);
     },
     (e) =>{
       this.loader.dismiss();

@@ -8,11 +8,17 @@ import { AngularFireAuthModule } from "angularfire2/auth";
 import { IonicStorageModule } from '@ionic/storage';
 import { FIREBASE_CONF } from "./app.firebase.config";
 import { MyApp } from './app.component';
+import { LoginPage } from '../pages/login/login';
+import { HomePage } from '../pages/home/home';
+import { RegisterPage } from '../pages/register/register';
 import { AuthProvider } from '../providers/auth/auth';
 @NgModule({
   declarations: [
     MyApp,
-    
+    RegisterPage,
+    HomePage,
+    LoginPage,
+
   ],
   imports: [
     BrowserModule,
@@ -25,6 +31,9 @@ import { AuthProvider } from '../providers/auth/auth';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    RegisterPage,
+    HomePage,
+    LoginPage,
   ],
   providers: [
     StatusBar,

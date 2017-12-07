@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { LoginPage } from '../login/login';
 import { AuthProvider } from '../../providers/auth/auth';
 /**
  * Generated class for the HomePage page.
@@ -9,7 +10,7 @@ import { AuthProvider } from '../../providers/auth/auth';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html',
@@ -27,6 +28,6 @@ export class HomePage {
   signOut(){
     this.auth.signOut();
     this.storage.set("user_logged","");
-    this.navCtrl.setRoot("LoginPage");
+    this.navCtrl.setRoot(LoginPage);
   }
 }

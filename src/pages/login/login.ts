@@ -4,6 +4,8 @@ import { IonicPage, NavController,
         ToastController
 } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { HomePage } from '../home/home';
+import { RegisterPage } from '../register/register';
 import { AuthProvider } from '../../providers/auth/auth';
 /**
  * Generated class for the LoginPage page.
@@ -50,7 +52,7 @@ export class LoginPage {
         this.loader.dismiss();
         console.log(d.u.uid);
         this.storage.set("user_logged",d.u.uid);
-        this.navCtrl.setRoot("HomePage");
+        this.navCtrl.setRoot(HomePage);
       }
     },(e)=>{
       this.loader.dismiss();
@@ -60,7 +62,7 @@ export class LoginPage {
   }
 
   register(){
-    this.navCtrl.push("RegisterPage"); 
+    this.navCtrl.push(RegisterPage); 
     return false;
   }
 }
