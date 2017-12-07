@@ -1,17 +1,32 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
-import { AngularFireAuth } from "angularfire2/auth";
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import { AuthProvider } from '../../providers/auth/auth';
+/**
+ * Generated class for the HomePage page.
+ *
+ * See https://ionicframework.com/docs/components/#navigation for more info on
+ * Ionic pages and navigation.
+ */
+
+@IonicPage()
 @Component({
   selector: 'page-home',
-  templateUrl: 'home.html'
+  templateUrl: 'home.html',
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController,private auth:AngularFireAuth) {
-
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private storage:Storage,
+              private auth:AuthProvider) {
   }
 
-  ionViewWillLoad(){
-    this.auth.auth.onAuthStateChanged(d => console.log(d));
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad HomePage');
+  }
+  signOut(){
+    this.auth.signOut();
+    this.storage.set("user_logged","");
+    this.navCtrl.setRoot("LoginPage");
   }
 }

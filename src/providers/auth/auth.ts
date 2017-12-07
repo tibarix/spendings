@@ -42,4 +42,11 @@ export class AuthProvider {
     }
   }
 
+  async signOut(){
+      try{
+        const res = await this.authService.auth.signOut();
+      }catch(e){
+        
+      }
+  }
 }

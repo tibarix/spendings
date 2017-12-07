@@ -3,6 +3,7 @@ import { IonicPage, NavController,
         NavParams ,LoadingController,
         ToastController
 } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { AuthProvider } from '../../providers/auth/auth';
 /**
  * Generated class for the LoginPage page.
@@ -18,15 +19,16 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class LoginPage {
   private user:any = {
-    email:"",
-    password:"",
+    email:"maayachi@gmail.com",
+    password:"123123",
   };
   private error:string="";
   private loader : any;
   private toast:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public loaderCtrl:LoadingController,public toastCtrl:ToastController,
-              public auth:AuthProvider) {
+              public auth:AuthProvider,private storage:Storage) {
+
     this.loader = this.loaderCtrl.create({
       content: "Please wait...",
     });
@@ -46,6 +48,8 @@ export class LoginPage {
     this.auth.login(this.user,(d)=>{
       if(d){
         this.loader.dismiss();
+        console.log(d.u.uid);
+        this.storage.set("user_logged",d.u.uid);
         this.navCtrl.setRoot("HomePage");
       }
     },(e)=>{

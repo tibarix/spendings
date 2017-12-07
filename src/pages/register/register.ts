@@ -18,8 +18,8 @@ import { AuthProvider } from '../../providers/auth/auth';
 })
 export class RegisterPage {
   private user: any = {
-    email: "",
-    password: ""
+    email: "maayachi@gmail.com",
+    password: "123123"
   }
   private error: string;
   private loader: any;
@@ -36,6 +36,7 @@ export class RegisterPage {
       closeButtonText: "OK",
       duration: 3000
     });
+
   }
 
   ionViewDidLoad() {
