@@ -11,13 +11,19 @@ import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { RegisterPage } from '../pages/register/register';
+import { SplashPage } from "../pages/splash/splash";
+import { PopoverPage } from '../models/Popover';
 import { AuthProvider } from '../providers/auth/auth';
+import { SpendingProvider } from '../providers/spending/spending';
+
 @NgModule({
   declarations: [
     MyApp,
     RegisterPage,
     HomePage,
     LoginPage,
+    PopoverPage,
+    SplashPage
 
   ],
   imports: [
@@ -34,12 +40,15 @@ import { AuthProvider } from '../providers/auth/auth';
     RegisterPage,
     HomePage,
     LoginPage,
+    PopoverPage,
+    SplashPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     AuthProvider,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SpendingProvider
   ]
 })
 export class AppModule {

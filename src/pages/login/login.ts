@@ -41,17 +41,22 @@ export class LoginPage {
       duration:3000
     });
   }
-
-  ionViewDidLoad() {
-    
+  ionViewWillEnter(){
+    this.storage.get("user_logged").then(
+      d => {
+        if(d){
+          this.navCtrl.setRoot(HomePage);
+        }
+      }
+    );
   }
   login(){
     this.loader.present();
     this.auth.login(this.user,(d)=>{
       if(d){
         this.loader.dismiss();
-        console.log(d.u.uid);
-        this.storage.set("user_logged",d.u.uid);
+        console.log(d);
+        this.storage.set("user_logged",d.uid);
         this.navCtrl.setRoot(HomePage);
       }
     },(e)=>{
