@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, ModalController,NavController, NavParams,PopoverController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { LoginPage } from '../login/login';
+import { Spending } from "../../components/spending/spending";
 import { NewSpendingModalPage } from "../new-spending-modal/new-spending-modal";
 import { AuthProvider } from '../../providers/auth/auth';
 import { PopoverPage } from '../../models/Popover';
@@ -13,11 +14,18 @@ import { PopoverPage } from '../../models/Popover';
 export class HomePage {
 
   private modal;
+  private newSpending;
+  private spendings = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private storage: Storage,public popoverCtrl:PopoverController,
     private auth: AuthProvider,private modalCtrl:ModalController) {
       this.modal = this.modalCtrl.create(NewSpendingModalPage);
-      console.log(this.modal)
+      this.newSpending = new Spending();
+      this.newSpending.description = "hello7"
+      let s = new Spending();
+      s.amount = 150;
+      s.description="mohammed";
+      this.spendings.push(s);
   }
 
   ionViewDidLoad() {
@@ -31,6 +39,11 @@ export class HomePage {
   }
   addNewSpending(){
     this.modal.present();
+    this.modal.onDidDismiss(d => console.log("modal data ",d));
+  }
+
+  add(e){
+    console.log(e)
   }
   signOut() {
     this.auth.signOut();

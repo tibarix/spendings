@@ -12,10 +12,12 @@ import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { RegisterPage } from '../pages/register/register';
 import { SplashPage } from "../pages/splash/splash";
+import { Spending } from "../components/spending/spending";
 import { NewSpendingModalPage } from "../pages/new-spending-modal/new-spending-modal";
 import { PopoverPage } from '../models/Popover';
 import { AuthProvider } from '../providers/auth/auth';
 import { SpendingProvider } from '../providers/spending/spending';
+import { NewSpendingComponent } from "../components/new-spending/new-spending";
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { SpendingProvider } from '../providers/spending/spending';
     LoginPage,
     PopoverPage,
     SplashPage,
-    NewSpendingModalPage
+    NewSpendingModalPage,
+    Spending,
+    NewSpendingComponent
 
   ],
   imports: [

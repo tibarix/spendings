@@ -15,9 +15,16 @@
     </ion-buttons>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
+<ion-content >
+    <new-spending (add)="add($event)"></new-spending>
+    <ion-list>
+      <ion-item *ngFor="let s of spendings">
+        <spending amount="s.amount" desciption="s.description" ></spending>
+      </ion-item>
+    </ion-list>
+
+
   <ion-fab bottom right >
     <button ion-fab (click)="addNewSpending()"><ion-icon name="add" ></ion-icon></button>
-   
   </ion-fab>
 </ion-content>
