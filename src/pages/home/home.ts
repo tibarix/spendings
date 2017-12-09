@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, ModalController,NavController, NavParams,PopoverController} from 'ionic-angular';
+import { IonicPage, ModalController,NavController,ToastController, NavParams,PopoverController} from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import {  FirebaseListObservable,AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { LoginPage } from '../login/login';
 import { Spending } from "../../components/spending/spending";
 import { NewSpendingModalPage } from "../new-spending-modal/new-spending-modal";
@@ -14,11 +15,24 @@ import { PopoverPage } from '../../models/Popover';
 export class HomePage {
 
   private modal;
-  private spendings = [];
+  private spendings:FirebaseListObservable<Spending[]>;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private storage: Storage,public popoverCtrl:PopoverController,
-    private auth: AuthProvider,private modalCtrl:ModalController) {
+    private auth: AuthProvider,private modalCtrl:ModalController,
+    public af: AngularFireDatabase,public toastCtrl:ToastController) {
       this.modal = this.modalCtrl.create(NewSpendingModalPage);
+      let toast = this.toastCtrl.create({
+          message: 'You have an urgent notification',
+          position: 'top',
+          showCloseButton: true,
+          closeButtonText: 'View',
+          cssClass: 'urgent-notification'
+      });
+      toast.present();
+       this.spendings = this.af.list("/spendings");
+       this.spendings.subscribe(d =>{
+         console.log(d);
+       });
   }
 
   ionViewDidLoad() {

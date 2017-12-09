@@ -18,7 +18,7 @@
 <ion-content >
     <new-spending (add)="add($event)"></new-spending>
     <ion-list>
-      <ion-item *ngFor="let s of spendings">
+      <ion-item *ngFor="let s of spendings | async">
         <spending [amount]="s.amount" [description]="s.description" ></spending>
       </ion-item>
     </ion-list>

@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { AngularFireModule } from "angularfire2";
 import { AngularFireAuthModule } from "angularfire2/auth";
+import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { IonicStorageModule } from '@ionic/storage';
 import { FIREBASE_CONF } from "./app.firebase.config";
 import { MyApp } from './app.component';
@@ -39,6 +40,7 @@ import { NewSpendingComponent } from "../components/new-spending/new-spending";
     AngularFireModule.initializeApp(FIREBASE_CONF),
     AngularFireAuthModule,
     IonicStorageModule.forRoot(),
+    AngularFireDatabaseModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
