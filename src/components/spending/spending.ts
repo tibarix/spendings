@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,Input} from '@angular/core';
 
 /**
  * Generated class for the SpendingComponent component.
@@ -14,12 +14,12 @@ export class Spending {
 
 
   id: string;
-  description: string;
-  amount: number;
+  @Input() description: string;
+  @Input() amount: number;
   createdAt: Date;
   constructor() {
-    this.description = "SXR";
-    this.amount = 10;
+    this.description = "";
+    this.amount = 0;
     this.createdAt = new Date();
   }
 

@@ -14,18 +14,11 @@ import { PopoverPage } from '../../models/Popover';
 export class HomePage {
 
   private modal;
-  private newSpending;
   private spendings = [];
   constructor(public navCtrl: NavController, public navParams: NavParams,
     private storage: Storage,public popoverCtrl:PopoverController,
     private auth: AuthProvider,private modalCtrl:ModalController) {
       this.modal = this.modalCtrl.create(NewSpendingModalPage);
-      this.newSpending = new Spending();
-      this.newSpending.description = "hello7"
-      let s = new Spending();
-      s.amount = 150;
-      s.description="mohammed";
-      this.spendings.push(s);
   }
 
   ionViewDidLoad() {
@@ -43,7 +36,12 @@ export class HomePage {
   }
 
   add(e){
-    console.log(e)
+    if(e){
+      let n = new Spending();
+      n.amount = e.amount;
+      n.description = e.description;
+      this.spendings.push(n);
+    }
   }
   signOut() {
     this.auth.signOut();

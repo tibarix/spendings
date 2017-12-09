@@ -1,6 +1,6 @@
 <ion-item>
   <ion-input type="text" placeholder="Description" [(ngModel)]="description"></ion-input>
-  <ion-input type="number" placeholder="Amount" [(ngModel)]="amount"></ion-input>
+  <ion-input type="number" placeholder="Amount" [(ngModel)]="amount" (keyup.enter)="ok()"></ion-input>
   <button ion-button outline item-end (click)="ok()">
       OK
     </button>

@@ -12,9 +12,6 @@ import { Component, ViewChild,ElementRef,Output ,EventEmitter} from '@angular/co
 })
 export class NewSpendingComponent {
 
-  @ViewChild(ElementRef)
-  root:ElementRef;
-  
   @Output() add: EventEmitter<any> = new EventEmitter();
   
   description;
@@ -25,6 +22,8 @@ export class NewSpendingComponent {
   ok(){
     if(this.amount){
       this.add.emit({description:this.description,amount:this.amount});
+      this.description = "";
+      this.amount = "";
     }else{
 
     }
