@@ -16,6 +16,7 @@ export class HomePage {
 
   private modal;
   private spendings: FirebaseListObservable<Spending[]>;
+  private dataBaseSubscription: any;
   private dataLoaded = false;
   private toast;
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -31,18 +32,24 @@ export class HomePage {
     let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
       this.toast.present();
     });
-    this.network.onConnect().subscribe(() => {
-      this.spendings = this.af.list("/spendings");
-      this.spendings.subscribe(d => {
-        this.dataLoaded = true;
-      });
-    });
+    // this.network.onConnect().subscribe(() => {
+    //   this.spendings = this.af.list("/spendings");
+    //   this.dataBaseSubscription = this.spendings.subscribe(d => {
+    //     this.dataLoaded = true;
+    //   });
+    // });
   }
 
   ionViewDidLoad() {
     if (navigator.onLine) {
-      this.spendings = this.af.list("/spendings");
-      this.spendings.subscribe(d => {
+      console.log(localStorage.getItem("user_logged"))
+      this.spendings = this.af.list("/spendings", {
+        query: {
+          orderByChild:"owner_id",
+          equalTo: localStorage.getItem("user_logged"),
+        }
+      });
+      this.dataBaseSubscription = this.spendings.subscribe(d => {
         this.dataLoaded = true;
       });
     } else {
@@ -60,13 +67,16 @@ export class HomePage {
       let n = new Spending();
       n.amount = e.amount;
       n.description = e.description;
-      console.log(localStorage.getItem("user_logged"));
+      n.owner_id = localStorage.getItem("user_logged");
+      n.createdAt = (new Date()).getTime() + "";
       this.spendings.push(n);
     }
   }
   signOut() {
     this.auth.signOut();
     localStorage.setItem("user_logged", "");
+    this.dataBaseSubscription.unsubscribe();
+    console.log(localStorage.getItem("user_logged"));
     this.navCtrl.setRoot(LoginPage);
   }
 }

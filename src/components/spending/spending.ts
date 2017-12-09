@@ -13,14 +13,14 @@ import { Component ,Input} from '@angular/core';
 export class Spending {
 
 
-  id: string;
+  owner_id: string;
   @Input() description: string = "";
   @Input() amount: number;
-  createdAt: Date;
+  createdAt: string;
   constructor() {
     this.description = "";
     this.amount = 0;
-    this.createdAt = new Date();
+    this.createdAt ="";
   }
 
 }
