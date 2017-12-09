@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      New Spending
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+    <form #newSpendingForm="ngForm" (ngSubmit)="addNewSpending()" autocomplete="off">
+    <ion-row>
+      <ion-col>
+        <ion-list inset>
+          <ion-item>
+            <ion-label floating color="primary">Description </ion-label>
+            <ion-input placeholder="Description" name="desc"  type="text"  [(ngModel)]="spending.description"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label floating color="primary">Amount </ion-label>
+            <ion-input placeholder="Amount" name="amount" type="number" required [(ngModel)]="spending.amount"></ion-input>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        <button ion-button class="submit-btn"  type="submit" [disabled]="!newSpendingForm.form.valid">Add</button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
