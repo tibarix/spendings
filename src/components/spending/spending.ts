@@ -14,7 +14,7 @@ export class Spending {
 
 
   id: string;
-  @Input() description: string;
+  @Input() description: string = "";
   @Input() amount: number;
   createdAt: Date;
   constructor() {

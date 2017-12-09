@@ -3,7 +3,6 @@ import { IonicPage, NavController,
         NavParams ,LoadingController,
         ToastController
 } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -13,7 +12,7 @@ import { AuthProvider } from '../../providers/auth/auth';
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
+var x;
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -29,7 +28,7 @@ export class LoginPage {
   private toast:any;
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public loaderCtrl:LoadingController,public toastCtrl:ToastController,
-              public auth:AuthProvider,private storage:Storage) {
+              public auth:AuthProvider) {
 
     this.loader = this.loaderCtrl.create({
       content: "Please wait...",
@@ -42,21 +41,17 @@ export class LoginPage {
     });
   }
   ionViewWillEnter(){
-    this.storage.get("user_logged").then(
-      d => {
-        if(d){
-          this.navCtrl.setRoot(HomePage);
-        }
-      }
-    );
+
+    if(localStorage.getItem("user_logged")){
+       this.navCtrl.setRoot(HomePage);
+    }
   }
   login(){
     this.loader.present();
     this.auth.login(this.user,(d)=>{
       if(d){
         this.loader.dismiss();
-        console.log(d);
-        this.storage.set("user_logged",d.uid);
+        localStorage.setItem("user_logged",d.uid);
         this.navCtrl.setRoot(HomePage);
       }
     },(e)=>{

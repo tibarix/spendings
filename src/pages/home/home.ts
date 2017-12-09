@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { IonicPage, AlertController, ModalController, NavController, ToastController, NavParams, PopoverController } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
 import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Network } from '@ionic-native/network';
 import { LoginPage } from '../login/login';
@@ -18,27 +17,37 @@ export class HomePage {
   private modal;
   private spendings: FirebaseListObservable<Spending[]>;
   private dataLoaded = false;
+  private toast;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private storage: Storage, public popoverCtrl: PopoverController,
+    public popoverCtrl: PopoverController,
     private auth: AuthProvider, private modalCtrl: ModalController,
     public af: AngularFireDatabase, public toastCtrl: ToastController,
     public alertCtrl: AlertController, private network: Network) {
-    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-      
+    this.toast = toastCtrl.create({
+      duration: 3000,
+      message: "Check your internet",
+      position: "bottom"
     });
-    let connectSubscription = this.network.onConnect().subscribe(() => {
+    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+      this.toast.present();
+    });
+    this.network.onConnect().subscribe(() => {
       this.spendings = this.af.list("/spendings");
       this.spendings.subscribe(d => {
         this.dataLoaded = true;
-      },e =>{
-        console.log(e)
       });
     });
-
   }
 
   ionViewDidLoad() {
-
+    if (navigator.onLine) {
+      this.spendings = this.af.list("/spendings");
+      this.spendings.subscribe(d => {
+        this.dataLoaded = true;
+      });
+    } else {
+      this.toast.present();
+    }
   }
   presentPopover(myEvent) {
     let popover = this.popoverCtrl.create(PopoverPage);
@@ -46,22 +55,18 @@ export class HomePage {
       ev: myEvent
     });
   }
-  addNewSpending() {
-    this.modal.present();
-    this.modal.onDidDismiss(d => console.log("modal data ", d));
-  }
-
   add(e) {
     if (e) {
       let n = new Spending();
       n.amount = e.amount;
       n.description = e.description;
+      console.log(localStorage.getItem("user_logged"));
       this.spendings.push(n);
     }
   }
   signOut() {
     this.auth.signOut();
-    this.storage.set("user_logged", {});
+    localStorage.setItem("user_logged", "");
     this.navCtrl.setRoot(LoginPage);
   }
 }

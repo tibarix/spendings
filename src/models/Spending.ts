@@ -1,6 +1,6 @@
 export class Spending{
     private id:string;
-    private description:string;
+    private description:string = "";
     private amount:number;
     private createdAt:Date;
 
