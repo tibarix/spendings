@@ -12,6 +12,7 @@ import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
 import { RegisterPage } from '../pages/register/register';
 import { SplashPage } from "../pages/splash/splash";
+import { NewSpendingModalPage } from "../pages/new-spending-modal/new-spending-modal";
 import { PopoverPage } from '../models/Popover';
 import { AuthProvider } from '../providers/auth/auth';
 import { SpendingProvider } from '../providers/spending/spending';
@@ -23,7 +24,8 @@ import { SpendingProvider } from '../providers/spending/spending';
     HomePage,
     LoginPage,
     PopoverPage,
-    SplashPage
+    SplashPage,
+    NewSpendingModalPage
 
   ],
   imports: [
@@ -41,7 +43,8 @@ import { SpendingProvider } from '../providers/spending/spending';
     HomePage,
     LoginPage,
     PopoverPage,
-    SplashPage
+    SplashPage,
+    NewSpendingModalPage
   ],
   providers: [
     StatusBar,

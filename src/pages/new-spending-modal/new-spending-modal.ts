@@ -17,7 +17,9 @@ export class NewSpendingModalPage {
 
   spending:Spending;
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl:ViewController) {
-    this.spending = new Spending();  
+     this.spending = new Spending();
+     this.spending.amount = 0;
+     this.spending.description = "";
   }
 
   ionViewDidLoad() {
@@ -28,6 +30,6 @@ export class NewSpendingModalPage {
   }
 
   addNewSpending(){
-    console.log()
+    console.log(123)
   }
 }
