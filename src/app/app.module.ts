@@ -8,6 +8,7 @@ import { AngularFireAuthModule } from "angularfire2/auth";
 import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { IonicStorageModule } from '@ionic/storage';
 import { FIREBASE_CONF } from "./app.firebase.config";
+import { Network } from '@ionic-native/network';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { HomePage } from '../pages/home/home';
@@ -41,6 +42,7 @@ import { NewSpendingComponent } from "../components/new-spending/new-spending";
     AngularFireAuthModule,
     IonicStorageModule.forRoot(),
     AngularFireDatabaseModule,
+
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -57,7 +59,8 @@ import { NewSpendingComponent } from "../components/new-spending/new-spending";
     SplashScreen,
     AuthProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    SpendingProvider
+    SpendingProvider,
+    Network
   ]
 })
 export class AppModule {

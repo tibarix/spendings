@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, ModalController,NavController,ToastController, NavParams,PopoverController} from 'ionic-angular';
+import { IonicPage, AlertController, ModalController, NavController, ToastController, NavParams, PopoverController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-import {  FirebaseListObservable,AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { Network } from '@ionic-native/network';
 import { LoginPage } from '../login/login';
 import { Spending } from "../../components/spending/spending";
 import { NewSpendingModalPage } from "../new-spending-modal/new-spending-modal";
@@ -15,28 +16,29 @@ import { PopoverPage } from '../../models/Popover';
 export class HomePage {
 
   private modal;
-  private spendings:FirebaseListObservable<Spending[]>;
+  private spendings: FirebaseListObservable<Spending[]>;
+  private dataLoaded = false;
   constructor(public navCtrl: NavController, public navParams: NavParams,
-    private storage: Storage,public popoverCtrl:PopoverController,
-    private auth: AuthProvider,private modalCtrl:ModalController,
-    public af: AngularFireDatabase,public toastCtrl:ToastController) {
-      this.modal = this.modalCtrl.create(NewSpendingModalPage);
-      let toast = this.toastCtrl.create({
-          message: 'You have an urgent notification',
-          position: 'top',
-          showCloseButton: true,
-          closeButtonText: 'View',
-          cssClass: 'urgent-notification'
+    private storage: Storage, public popoverCtrl: PopoverController,
+    private auth: AuthProvider, private modalCtrl: ModalController,
+    public af: AngularFireDatabase, public toastCtrl: ToastController,
+    public alertCtrl: AlertController, private network: Network) {
+    let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+      
+    });
+    let connectSubscription = this.network.onConnect().subscribe(() => {
+      this.spendings = this.af.list("/spendings");
+      this.spendings.subscribe(d => {
+        this.dataLoaded = true;
+      },e =>{
+        console.log(e)
       });
-      toast.present();
-       this.spendings = this.af.list("/spendings");
-       this.spendings.subscribe(d =>{
-         console.log(d);
-       });
+    });
+
   }
 
   ionViewDidLoad() {
-    
+
   }
   presentPopover(myEvent) {
     let popover = this.popoverCtrl.create(PopoverPage);
@@ -44,13 +46,13 @@ export class HomePage {
       ev: myEvent
     });
   }
-  addNewSpending(){
+  addNewSpending() {
     this.modal.present();
-    this.modal.onDidDismiss(d => console.log("modal data ",d));
+    this.modal.onDidDismiss(d => console.log("modal data ", d));
   }
 
-  add(e){
-    if(e){
+  add(e) {
+    if (e) {
       let n = new Spending();
       n.amount = e.amount;
       n.description = e.description;
