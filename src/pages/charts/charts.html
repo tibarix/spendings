@@ -10,11 +10,12 @@
   <div>
   <div >
     <div>
-    <canvas baseChart #chart 
+    <canvas baseChart #chart
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"
                 [options]="lineChartOptions"
                 [colors]="lineChartColors"
+                (chartClick)="chartClicked($event)"
                 [chartType]="lineChartType"></canvas>
     </div>
   </div>

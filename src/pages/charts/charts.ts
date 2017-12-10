@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { BaseChartDirective } from 'ng2-charts/ng2-charts';
 import Chart from "chart.js"
 /**
  * Generated class for the ChartsPage page.
@@ -15,7 +16,7 @@ import Chart from "chart.js"
 })
 export class ChartsPage {
   // lineChart
-  @ViewChild("chart") chart;
+  @ViewChild(BaseChartDirective) chart: BaseChartDirective;
   public lineChartData: Array<any> = [
     { data: [], label: 'll' },
   ];
@@ -35,7 +36,7 @@ export class ChartsPage {
   ];
   public lineChartLegend: boolean = true;
   public lineChartType: string = 'line';
-
+  
   constructor() {
     this.ionViewDidLoad();
   }
@@ -53,14 +54,24 @@ export class ChartsPage {
       }
       labels.push(o.description);
     }
-    this.lineChartLabels = dates.slice();
+    this.lineChartLabels = dates;
     this.lineChartData = [
-      { data: spendings }
+      { data: spendings ,label:"Spending evolution."}
     ];
 
-    this.lineChartData = this.lineChartData.slice();
+    this.refresh_chart();
   }
   ionViewWillEnter() {
     this.ionViewDidLoad();
   }
+   refresh_chart() {
+        setTimeout(() => {
+            if (this.chart && this.chart.chart && this.chart.chart.config) {
+                this.chart.chart.config.data.labels = this.lineChartLabels;
+                this.chart.chart.config.data.datasets = this.lineChartData;
+                this.chart.chart.update();
+            }
+        });
+    }
+
 }
