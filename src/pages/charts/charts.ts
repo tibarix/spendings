@@ -38,19 +38,22 @@ export class ChartsPage {
   public lineChartType: string = 'line';
   
   constructor() {
-    this.ionViewDidLoad();
   }
   ionViewDidLoad() {
+    
+  }
+  ionViewWillEnter() {
     let json = JSON.parse(localStorage.getItem("spendings"));
     let spendings = [];
     let dates = [];
     let labels = [];
     for (let o of json) {
       spendings.push(o.amount);
+      console.log(o.createdAt)
       if (o.createdAt) {
-        dates.push(new Date(o.createdAt).getDate());
+        dates.push(new Date(parseInt(o.createdAt)).toLocaleDateString());
       } else {
-        dates.push(new Date().getDate());
+        dates.push(new Date().toLocaleDateString());
       }
       labels.push(o.description);
     }
@@ -60,9 +63,6 @@ export class ChartsPage {
     ];
 
     this.refresh_chart();
-  }
-  ionViewWillEnter() {
-    this.ionViewDidLoad();
   }
    refresh_chart() {
         setTimeout(() => {

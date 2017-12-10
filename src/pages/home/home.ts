@@ -66,7 +66,7 @@ export class HomePage {
     if (e) {
       let n = new Spending();
       n.amount = e.amount;
-      n.description = e.description;
+      n.description = e.description || " ";
       n.owner_id = localStorage.getItem("user_logged");
       n.createdAt = (new Date()).getTime() + "";
       this.spendings.push(n);

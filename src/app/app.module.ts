@@ -23,6 +23,8 @@ import { PopoverPage } from '../models/Popover';
 import { AuthProvider } from '../providers/auth/auth';
 import { SpendingProvider } from '../providers/spending/spending';
 import { NewSpendingComponent } from "../components/new-spending/new-spending";
+import { FormatterProvider } from '../providers/formatter/formatter';
+import { PipesModule } from "../pipes/pipes.module"
 
 @NgModule({
   declarations: [
@@ -36,8 +38,7 @@ import { NewSpendingComponent } from "../components/new-spending/new-spending";
     Spending,
     TabsPage,
     ChartsPage,
-    NewSpendingComponent
-
+    NewSpendingComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,8 +48,8 @@ import { NewSpendingComponent } from "../components/new-spending/new-spending";
     AngularFireAuthModule,
     IonicStorageModule.forRoot(),
     AngularFireDatabaseModule,
-    ChartsModule
-
+    ChartsModule,
+    PipesModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -68,7 +69,8 @@ import { NewSpendingComponent } from "../components/new-spending/new-spending";
     AuthProvider,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     SpendingProvider,
-    Network
+    Network,
+    FormatterProvider
   ]
 })
 export class AppModule {
