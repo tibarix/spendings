@@ -26,7 +26,7 @@ export class HomePage {
     public alertCtrl: AlertController, private network: Network) {
     this.toast = toastCtrl.create({
       duration: 3000,
-      message: "Check your internet",
+      message: "Check your internet.",
       position: "bottom"
     });
     let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
@@ -42,7 +42,6 @@ export class HomePage {
 
   ionViewDidLoad() {
     if (navigator.onLine) {
-      console.log(localStorage.getItem("user_logged"))
       this.spendings = this.af.list("/spendings", {
         query: {
           orderByChild:"owner_id",
@@ -51,6 +50,7 @@ export class HomePage {
       });
       this.dataBaseSubscription = this.spendings.subscribe(d => {
         this.dataLoaded = true;
+        localStorage.setItem("spendings",JSON.stringify(d));
       });
     } else {
       this.toast.present();
@@ -76,7 +76,6 @@ export class HomePage {
     this.auth.signOut();
     localStorage.setItem("user_logged", "");
     this.dataBaseSubscription.unsubscribe();
-    console.log(localStorage.getItem("user_logged"));
     this.navCtrl.setRoot(LoginPage);
   }
 }

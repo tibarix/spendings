@@ -3,7 +3,7 @@ import { IonicPage, NavController,
         NavParams ,LoadingController,
         ToastController
 } from 'ionic-angular';
-import { HomePage } from '../home/home';
+import { TabsPage } from '../tabs/tabs';
 import { RegisterPage } from '../register/register';
 import { AuthProvider } from '../../providers/auth/auth';
 /**
@@ -43,7 +43,7 @@ export class LoginPage {
   ionViewWillEnter(){
 
     if(localStorage.getItem("user_logged")){
-       this.navCtrl.setRoot(HomePage);
+       this.navCtrl.setRoot(TabsPage);
     }
   }
   login(){
@@ -52,7 +52,7 @@ export class LoginPage {
       if(d){
         this.loader.dismiss();
         localStorage.setItem("user_logged",d.uid);
-        this.navCtrl.setRoot(HomePage);
+        this.navCtrl.setRoot(TabsPage);
       }
     },(e)=>{
       this.loader.dismiss();
