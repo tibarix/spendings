@@ -3,9 +3,10 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { AngularFireModule } from "angularfire2";
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireOfflineModule } from 'angularfire2-offline';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from "angularfire2/auth";
-import { AngularFireDatabaseModule } from 'angularfire2/database-deprecated';
 import { IonicStorageModule } from '@ionic/storage';
 import { ChartsModule } from 'ng2-charts';
 import { FIREBASE_CONF } from "./app.firebase.config";
@@ -43,8 +44,9 @@ import { PipesModule } from "../pipes/pipes.module"
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule,
     AngularFireModule.initializeApp(FIREBASE_CONF),
+    AngularFireDatabaseModule,
+    AngularFireOfflineModule,
     AngularFireAuthModule,
     IonicStorageModule.forRoot(),
     AngularFireDatabaseModule,

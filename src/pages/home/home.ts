@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, AlertController, ModalController, NavController, ToastController, NavParams, PopoverController } from 'ionic-angular';
-import { FirebaseListObservable, AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { 
+  AfoListObservable, 
+  AngularFireOfflineDatabase } from 'angularfire2-offline/database';
 import { Network } from '@ionic-native/network';
 import { LoginPage } from '../login/login';
 import { Spending } from "../../components/spending/spending";
@@ -15,14 +17,14 @@ import { PopoverPage } from '../../models/Popover';
 export class HomePage {
 
   private modal;
-  private spendings: FirebaseListObservable<Spending[]>;
+  private spendings: AfoListObservable<Spending[]>;
   private dataBaseSubscription: any;
   private dataLoaded = false;
   private toast;
   constructor(public navCtrl: NavController, public navParams: NavParams,
     public popoverCtrl: PopoverController,
     private auth: AuthProvider, private modalCtrl: ModalController,
-    public af: AngularFireDatabase, public toastCtrl: ToastController,
+    public af: AngularFireOfflineDatabase, public toastCtrl: ToastController,
     public alertCtrl: AlertController, private network: Network) {
     this.toast = toastCtrl.create({
       duration: 3000,
