@@ -49,7 +49,6 @@ export class ChartsPage {
     let labels = [];
     for (let o of json) {
       spendings.push(o.amount);
-      console.log(o.createdAt)
       if (o.createdAt) {
         dates.push(new Date(parseInt(o.createdAt)).toLocaleDateString());
       } else {
